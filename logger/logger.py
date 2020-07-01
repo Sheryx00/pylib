@@ -15,7 +15,7 @@ REPOSITORY: https://github.com/schrocpgerardo/Pocket-Console-Log-for-python
 """
 
 import sys
-from pylib.colors import colors as c
+from colors import colors as c
 
 #   COLORS COOKWORK
 message     = c.message
@@ -47,7 +47,7 @@ logging = {
             'debug':    [DEBUG, lightcyan],
             'info':     [INFO, white],
             'ast':      [AST, pink],
-            'run':      [RUN, green],
+            'success':  [RUN, green],
             'warning':  [WARNING, orange],
             'error':    [ERROR, red],
             'critical': [CRITICAL, red],
@@ -95,7 +95,7 @@ def log(level, msg=None, clr='reset', *args, **kwargs):
             return set_new_level(level)
         else:
             if debug_index.index(level) >= debug_index.index(set_level):
-                clr = clr if clr != 'reset' else logging[level][0]
-                msg = message(msg, clr=clr, **kwargs)
+                print(logging[level][0], end='\t')
+                return message(msg, clr=clr, **kwargs)
     except Exception as e:
         print(str(e))
