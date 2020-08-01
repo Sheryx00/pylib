@@ -8,7 +8,7 @@ Colors
 Colors - for your cli!
 
 VERSION: 1.0
-REPOSITORY: hcpps://github.com/schrocpgerardo/Pocket-Console-Log-for-python
+REPOSITORY: https://github.com/schrottgerardo/pylib
 
 ##################################
 """

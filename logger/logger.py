@@ -4,7 +4,7 @@
 Logger - log quicky to the output!
 
 VERSION: 1.0
-REPOSITORY: https://github.com/schrocpgerardo/Pocket-Console-Log-for-python
+REPOSITORY: https://github.com/schrottgerardo/pylib
 
 ##################################
 
@@ -25,31 +25,34 @@ bold        = colors.bold
 reset_color = colors.reset
 white       = colors.lightgrey
 lightcyan   = colors.lightcyan
+lightgrey   = colors.lightgrey
+darkgrey   = colors.darkgrey
 green       = colors.green
 pink        = colors.pink + colors.bold
 orange      = colors.orange
 red         = colors.red
 
 DEBUG       = white+"["+lightcyan+bold+"DEBUG"+reset_color+white+"]"+white+reset_color+" "
+TRACK       = white+"["+lightgrey+bold+"TRACK"+reset_color+white+"]"+white+reset_color+" "
 INFO        = white+"["+white+bold+"INFO"+reset_color+white+"]"+white+reset_color+" "
 RUN         = white+"["+green+bold+"RUN"+reset_color+white+"]"+white+reset_color+" "
 AST         = white+"["+pink+"*"+reset_color+white+"]"+white+reset_color+" "
 WARNING     = white+"["+orange+bold+"WARNING"+reset_color+white+"]"+white+reset_color+" "
-ERROR       = white+"["+red+bold+"ERRRO"+reset_color+white+"]"+white+reset_color+" "
+ERROR       = white+"["+red+bold+"ERROR"+reset_color+white+"]"+white+reset_color+" "
 CRITICAL    = white+"["+red+bold+"CRITICAL"+reset_color+white+"]"+white+reset_color+" "
 
 # LOGGING
 set_level = 'info' # this is the default level
-debug_index = ["debug", "info", "success", "warning", "error", "critical"]
+debug_index = ["debug","track", "info", "success", "warning", "error", "critical"]
 
 logging = {
             # '' :        ['',''],
-            'debug':    [DEBUG, lightcyan],
-            'info':     [INFO, white],
-            'ast':      [AST, pink],
-            'success':  [RUN, green],
-            'warning':  [WARNING, orange],
-            'error':    [ERROR, red],
+            'debug':    [DEBUG+'   ', lightcyan],
+            'track':    [TRACK+'   ', darkgrey],
+            'info':     [INFO+'    ', white],
+            'success':  [RUN+'     ', green],
+            'warning':  [WARNING+' ', orange],
+            'error':    [ERROR+'   ', red],
             'critical': [CRITICAL, red],
             }
 
@@ -62,7 +65,7 @@ def set_new_level(level):
         if level in debug_index:
             global set_level
             set_level = level
-            print("The level of logger has changed to: %s " % (bold + set_level + reset_color))
+            # print("The level of logger has changed to: %s " % (bold + set_level + reset_color))
         else:
             print('Must choice one of this list: %s' % debug_index)
     except Exception as e:
@@ -89,13 +92,13 @@ def log(level, msg=None, clr='reset', *args, **kwargs):
             Thats all. The rest of this function() is just like color.message(), so you
             could do something mixed like:
             log('info', "this message will be have a colored word", 'blue', word='colored')
-"""
+    """
     try:
         if not msg:
             return set_new_level(level)
         else:
             if debug_index.index(level) >= debug_index.index(set_level):
-                print(logging[level][0], end='\t')
+                print(logging[level][0], end=' ')
                 return message(msg, clr=clr, **kwargs)
     except Exception as e:
         print(str(e))
